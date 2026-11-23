@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "assessor-db": {
+      "command": ".venv/Scripts/python.exe",
+      "args": ["tools/mcp_assessor_db.py"],
+      "env": {}
+    }
+  }
+}

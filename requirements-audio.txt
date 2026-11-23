@@ -1,0 +1,3 @@
+# O reconhecimento roda no executável isolado whisper.cpp.
+# Este pacote fornece um FFmpeg portátil para converter OGG/Opus do Telegram em WAV PCM 16 kHz.
+imageio-ffmpeg>=0.5,<1

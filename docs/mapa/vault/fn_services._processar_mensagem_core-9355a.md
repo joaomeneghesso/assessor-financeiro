@@ -1,0 +1,197 @@
+---
+tipo: service
+arquivo: services.py
+linha: 8439
+---
+# _processar_mensagem_core
+
+Roteador de texto do legado: cadeia de if/regex em ordem; o primeiro gatilho que casa vence. Começa por confirmar/cancelar alteração, prévia de alteração digitada e edição de fixo; depois valida competência AAAA-MM, confirma/cancela exclusão, trata fatura e só então os comandos de consulta/cadastro; termina em comando protegido, bloqueios e lançamento livre.
+
+`fn:services._processar_mensagem_core`
+
+## Vai para
+- (chama) [[fn_services.normalizar_comando_sinonimos-69dcb|services.normalizar_comando_sinonimos]] 8517
+- (le_estado) [[state__EXCLUSAO_CONFIRMADA-6a03b|_EXCLUSAO_CONFIRMADA]] 8475
+- (le_estado) [[state_PENDENCIAS_EXPORTACAO-908bd|PENDENCIAS_EXPORTACAO]] 8845
+- (chama) [[text_confirmar_alteracao-9443a|confirmar alteracao]] services.py:8441
+- (chama) [[text_cancelar_alteracao-64585|cancelar alteracao]] services.py:8443
+- (chama) [[text_prévia_de_alteração_digitada_mudar_corrigir_meta_fixos_entradas...-27bdc|prévia de alteração digitada (mudar|corrigir|meta|fixos|entradas...)]] services.py:8446
+- (chama) [[text_edição_de_fixo_fixos_edicao.parse-c3afe|edição de fixo (fixos_edicao.parse)]] services.py:8451
+- (chama) [[text_alterar_término_fixo_id_para_sem_término-e559b|alterar término fixo <id> para sem término]] services.py:8460
+- (chama) [[text_diagnóstico_fixo_id_aaaa-mm-fc568|diagnóstico fixo <id> [aaaa-mm]]] services.py:8464
+- (chama) [[text_competência_AAAA-MM_inválida_no_texto-6ca5a|competência AAAA-MM inválida no texto]] services.py:8471
+- (chama) [[text_comando_interno_de_exclusão___executar_exclusao-595cb|comando interno de exclusão (__executar_exclusao__)]] services.py:8475
+- (chama) [[text_confirmar_exclusao-ec8dc|confirmar exclusao]] services.py:8479
+- (chama) [[text_cancelar_exclusao-42996|cancelar exclusao]] services.py:8481
+- (chama) [[text_confirmar_pagamento_estorno_crédito-0942f|confirmar pagamento|estorno|crédito]] services.py:8484
+- (chama) [[text_cancelar_pagamento_estorno_crédito-bc911|cancelar pagamento|estorno|crédito]] services.py:8489
+- (chama) [[text_corrigir_f_id_campo_valor-19a57|corrigir #f<id> <campo> <valor>]] services.py:8491
+- (chama) [[text_movimento_de_fatura_parsear_comando_movimento_fatura-c63d4|movimento de fatura (parsear_comando_movimento_fatura)]] services.py:8495
+- (chama) [[text_fatura_conta_aaaa-mm-39f7e|fatura <conta> [aaaa-mm]]] services.py:8500
+- (chama) [[text_movimentos_da_fatura_conta_aaaa-mm-0d4f8|movimentos da fatura <conta> [aaaa-mm]]] services.py:8502
+- (chama) [[text_apagar_movimento_f_id-07be4|apagar movimento #f<id>]] services.py:8504
+- (chama) [[text_estorno_crédito_abatimento_reembolso_valor_na_fatura_conta-d1c20|estorno|crédito|abatimento|reembolso <valor> na fatura <conta>]] services.py:8508
+- (chama) [[text_paguei_valor_da_fatura_conta_usando_origem-f02dc|paguei <valor> da fatura <conta> usando <origem>]] services.py:8508
+- (chama) [[text_paguei_o_restante_da_fatura_conta_usando_origem-9db49|paguei o restante da fatura <conta> usando <origem>]] services.py:8508
+- (chama) [[text_auditar_mês_aaaa-mm-ebb72|auditar mês [aaaa-mm]]] services.py:8519
+- (chama) [[text_por_que_meu_resultado_está_errado_aaaa-mm-ae394|por que meu resultado está errado [aaaa-mm]]] services.py:8527
+- (chama) [[text_apagar_excluir_deletar_remover_alvo_destrutivo-5f0eb|apagar|excluir|deletar|remover <alvo> (destrutivo)]] services.py:8535
+- (chama) [[text_aprender_aula_treinamento_manual_tutorial_guia_tópico-bcb0b|aprender|aula|treinamento|manual|tutorial|guia [tópico]]] services.py:8538
+- (chama) [[text_vencimento_da_fatura_cartão_aaaa-mm_dia_n-f78a9|vencimento da fatura <cartão> [aaaa-mm] dia <n>]] services.py:8543
+- (chama) [[text_vencimento_código_aaaa-mm_para_dia_n-73523|vencimento <código> [aaaa-mm] para dia <n>]] services.py:8547
+- (chama) [[text_apagar_vencimento_fixo_código_aaaa-mm-3e45e|apagar vencimento fixo <código> [aaaa-mm]]] services.py:8551
+- (chama) [[text_vencimentos_hoje-62d23|vencimentos hoje]] services.py:8555
+- (chama) [[text_vencimentos_aaaa-mm-51e2a|vencimentos [aaaa-mm]]] services.py:8558
+- (chama) [[text_transferi_valor_do_origem_para_destino-43a7a|transferi <valor> do <origem> para <destino>]] services.py:8566
+- (chama) [[text_transferências_aaaa-mm-bea4b|transferências [aaaa-mm]]] services.py:8570
+- (chama) [[text_apagar_transferência_caixa_id-550b5|apagar transferência caixa <id>]] services.py:8585
+- (chama) [[text_registrar-1ae73|registrar]] services.py:8599
+- (chama) [[text_hoje-7bfab|hoje]] services.py:8602
+- (chama) [[text_ajustes-6dc04|ajustes]] services.py:8605
+- (chama) [[text_detalhar_abrir_ver_código_aaaa-mm-9ab3e|detalhar|abrir|ver <código> [aaaa-mm]]] services.py:8608
+- (chama) [[text_resetar_limpar_zerar_checklist_aaaa-mm-04f8b|resetar|limpar|zerar checklist [aaaa-mm]]] services.py:8612
+- (chama) [[text_paguei_códigos..._aaaa-mm_múltiplo-cc162|paguei <códigos...> [aaaa-mm] (múltiplo)]] services.py:8622
+- (chama) [[text_paguei_pago_quitar_código_aaaa-mm-1ca6a|paguei|pago|quitar <código> [aaaa-mm]]] services.py:8630
+- (chama) [[text_checklist_aaaa-mm_filtro-14d84|checklist [aaaa-mm|filtro]]] services.py:8638
+- (chama) [[text_pendências_abertas_aaaa-mm-c6ecf|pendências abertas [aaaa-mm]]] services.py:8642
+- (chama) [[text_herança_aaaa-mm-aa686|herança [aaaa-mm]]] services.py:8646
+- (chama) [[text_auditoria_despesas_aaaa-mm-9ab1b|auditoria despesas [aaaa-mm]]] services.py:8656
+- (chama) [[text_caixa_meu_caixa_caixa_por_conta_saldo_das_contas_meu_dinheiro_aaaa-mm-68dac|caixa|meu caixa|caixa por conta|saldo das contas|meu dinheiro [aaaa-mm]]] services.py:8660
+- (chama) [[text_dashboard_categorias_mês-45a35|dashboard categorias [mês]]] services.py:8664
+- (chama) [[text_dashboard_dash_painel_mês-65414|dashboard|dash|painel [mês]]] services.py:8668
+- (chama) [[text_saldo_inicial_aaaa-mm_conta_herdado-94bcb|saldo inicial [aaaa-mm] <conta> herdado]] services.py:8672
+- (chama) [[text_saldo-c318b|saldo]] services.py:8676
+- (chama) [[text_saldo_geral_aaaa-mm-41662|saldo geral <aaaa-mm>]] services.py:8693
+- (chama) [[text_saldo_conta_aaaa-mm-1d103|saldo <conta> <aaaa-mm>]] services.py:8706
+- (chama) [[text_saldo_aaaa-mm_conta-8b6b4|saldo <aaaa-mm> <conta>]] services.py:8719
+- (chama) [[text_saldo_aaaa-mm-cbada|saldo <aaaa-mm>]] services.py:8729
+- (chama) [[text_saldo_conta-1d6e6|saldo <conta>]] services.py:8736
+- (chama) [[text_despesas_gastos_saídas_conta_mês_pagina_n-a9da2|despesas|gastos|saídas <conta> <mês> [pagina n]]] services.py:8748
+- (chama) [[text_extrato_lançamentos_receitas_entradas_conta_mês-7b3c3|extrato|lançamentos|receitas|entradas <conta> <mês>]] services.py:8757
+- (chama) [[text_meu_mês-11712|meu mês]] services.py:8766
+- (chama) [[text_detalhes_meu_mês-b896a|detalhes meu mês]] services.py:8769
+- (chama) [[text_detalhes_meu_mês_aaaa-mm-3bdda|detalhes meu mês <aaaa-mm>]] services.py:8772
+- (chama) [[text_meu_mês_aaaa-mm-4f11d|meu mês <aaaa-mm>]] services.py:8779
+- (chama) [[text_compromissos-ee365|compromissos]] services.py:8786
+- (chama) [[text_compromissos_aaaa-mm-b741a|compromissos <aaaa-mm>]] services.py:8789
+- (chama) [[text_revisar-b7a8a|revisar]] services.py:8796
+- (chama) [[text_detalhar_lançamento_id-ca964|detalhar lançamento <id>]] services.py:8798
+- (chama) [[text_lançamento_id-5b02d|lançamento <id>]] services.py:8805
+- (chama) [[text_buscar-3a9fd|buscar]] services.py:8809
+- (chama) [[text_buscar_termo_pagina_n-a6aa2|buscar <termo> pagina <n>]] services.py:8812
+- (chama) [[text_buscar_termo-e72a3|buscar <termo>]] services.py:8816
+- (chama) [[text_últimas_pagina_n-67a3f|últimas pagina <n>]] services.py:8820
+- (chama) [[text_últimas_filtro_pagina_n-d4f80|últimas <filtro> pagina <n>]] services.py:8824
+- (chama) [[text_últimas_filtro_n-0e678|últimas <filtro|n>]] services.py:8828
+- (chama) [[text_listar_últimos-2179b|listar últimos]] services.py:8842
+- (chama) [[text_exportação_pendente_cancelar_período_tudo-3ca8c|exportação pendente (cancelar|período|tudo)]] services.py:8845
+- (chama) [[text_cancelar_exportação-9b55e|cancelar exportação]] services.py:8869
+- (chama) [[text_confirmar-98b3b|confirmar]] services.py:8872
+- (chama) [[text_cancelar-f5cad|cancelar]] services.py:8875
+- (chama) [[text_confirmar_importação-2b686|confirmar importação]] services.py:8878
+- (chama) [[text_cancelar_importação-f1d5f|cancelar importação]] services.py:8881
+- (chama) [[text_analisar_csv_importar_csv_prever_importação-0b8cd|analisar csv|importar csv|prever importação]] services.py:8885
+- (chama) [[text_nova_entrada_fixa_nome_valor_dia_d-8dcc0|nova entrada fixa <nome> <valor> dia <d>]] services.py:8888
+- (chama) [[text_entrada_nome_valor_em_data-0bccf|entrada <nome> <valor> em <data>]] services.py:8905
+- (chama) [[text_entradas-e99fe|entradas]] services.py:8922
+- (chama) [[text_entradas_cadastradas-0f8f4|entradas cadastradas]] services.py:8925
+- (chama) [[text_entradas_aaaa-mm-3391f|entradas <aaaa-mm>]] services.py:8928
+- (chama) [[text_alterar_entrada_id_para_valor-f27ee|alterar entrada <id> para <valor>]] services.py:8935
+- (chama) [[text_pausar_entrada_id-05f3d|pausar entrada <id>]] services.py:8943
+- (chama) [[text_reativar_entrada_id-8e89e|reativar entrada <id>]] services.py:8947
+- (chama) [[text_apagar_entrada_id-51fbe|apagar entrada <id>]] services.py:8951
+- (chama) [[text_novo_fixo_nome_valor_forma_dia_d-76f63|novo fixo <nome> <valor> [forma] dia <d>]] services.py:8955
+- (chama) [[text_quanto_vou_pagar-9e130|quanto vou pagar]] services.py:8972
+- (chama) [[text_detalhar_quanto_vou_pagar_no_banco_em_aaaa-mm-c0cb1|detalhar quanto vou pagar no <banco> [em aaaa-mm]]] services.py:8991
+- (chama) [[text_quanto_vou_pagar_no_banco_em_aaaa-mm-76ad6|quanto vou pagar no <banco> [em aaaa-mm]]] services.py:9003
+- (chama) [[text_pagar_no_banco_em_aaaa-mm-d183a|pagar no <banco> [em aaaa-mm]]] services.py:9012
+- (chama) [[text_contas-73b6a|contas]] services.py:9021
+- (chama) [[text_contas_aaaa-mm-94207|contas <aaaa-mm>]] services.py:9024
+- (chama) [[text_formas-abcfd|formas]] services.py:9031
+- (chama) [[text_formas_aaaa-mm-62ea1|formas <aaaa-mm>]] services.py:9034
+- (chama) [[text_categorias-6747a|categorias]] services.py:9041
+- (chama) [[text_categorias_aaaa-mm-bcd43|categorias <aaaa-mm>]] services.py:9044
+- (chama) [[text_detalhar_mês-cca1a|detalhar mês]] services.py:9051
+- (chama) [[text_detalhar_aaaa-mm-7bea0|detalhar <aaaa-mm>]] services.py:9054
+- (chama) [[text_detalhar_categoria_cat_aaaa-mm-59ab8|detalhar [categoria] <cat> <aaaa-mm>]] services.py:9061
+- (chama) [[text_detalhar_categoria_cat-e7689|detalhar [categoria] <cat>]] services.py:9072
+- (chama) [[text_categoria_futuro_próximos_meses-412f8|<categoria> futuro|próximos meses]] services.py:9082
+- (chama) [[text_categoria_aaaa-mm-c683f|<categoria> <aaaa-mm>]] services.py:9090
+- (chama) [[text_fixos-75168|fixos]] services.py:9103
+- (chama) [[text_fixos_filtro-8f013|fixos <filtro>]] services.py:9106
+- (chama) [[text_compromissos_fixos-6e45c|compromissos fixos]] services.py:9110
+- (chama) [[text_compromissos_parcelados-ab594|compromissos parcelados]] services.py:9113
+- (chama) [[text_alterar_fixo_id_para_valor-4c93f|alterar fixo <id> para <valor>]] services.py:9116
+- (chama) [[text_alterar_vencimento_fixo_id_para_dia_d-956bf|alterar vencimento fixo <id> para [dia] <d>]] services.py:9124
+- (chama) [[text_alterar_conta_fixo_compromisso_parcela_id_para_conta-57c4f|alterar conta <fixo|compromisso|parcela> <id> para <conta>]] services.py:9130
+- (chama) [[text_alterar_forma_fixo_compromisso_parcela_id_para_forma-b1c43|alterar forma <fixo|compromisso|parcela> <id> para <forma>]] services.py:9139
+- (chama) [[text_alterar_categoria_fixo_compromisso_parcela_id_para_cat-25dd4|alterar categoria <fixo|compromisso|parcela> <id> para <cat>]] services.py:9148
+- (chama) [[text_pausar_fixo_compromisso_id-9e677|pausar fixo|compromisso <id>]] services.py:9157
+- (chama) [[text_reativar_fixo_compromisso_id-e5d8f|reativar fixo|compromisso <id>]] services.py:9161
+- (chama) [[text_apagar_fixo_compromisso_id-16849|apagar fixo|compromisso <id>]] services.py:9165
+- (chama) [[text_status-c636c|status]] services.py:9169
+- (chama) [[text_assessor-a1510|assessor]] services.py:9172
+- (chama) [[text_agenda-5ce89|agenda]] services.py:9175
+- (chama) [[text_agenda_aaaa-mm-336aa|agenda <aaaa-mm>]] services.py:9178
+- (chama) [[text_fechamento_semanal-02528|fechamento semanal]] services.py:9185
+- (chama) [[text_fechamento_do_mês-fd23b|fechamento do mês]] services.py:9188
+- (chama) [[text_fechamento_aaaa-mm-dcae1|fechamento <aaaa-mm>]] services.py:9191
+- (chama) [[text_simular_texto-cb9e8|simular <texto>]] services.py:9198
+- (chama) [[text_posso_comprar_texto-4eb22|posso comprar <texto>]] services.py:9202
+- (chama) [[text_vale_a_pena_comprar_texto-7faf8|vale a pena comprar <texto>]] services.py:9206
+- (chama) [[text_parcelamentos-8d757|parcelamentos]] services.py:9210
+- (chama) [[text_apagar_parcelamento_id-06913|apagar parcelamento <id>]] services.py:9213
+- (chama) [[text_parcelas_futuras-d73dc|parcelas futuras]] services.py:9217
+- (chama) [[text_parcelas_aaaa-mm-6853a|parcelas <aaaa-mm>]] services.py:9220
+- (chama) [[text_parcelas_parcelamento_id-dd665|parcelas|parcelamento <id>]] services.py:9227
+- (chama) [[text_relatório_do_mês-94f48|relatório do mês]] services.py:9231
+- (chama) [[text_relatório_aaaa-mm-7d3f1|relatório <aaaa-mm>]] services.py:9234
+- (chama) [[text_backup-301db|backup]] services.py:9241
+- (chama) [[text_backup_automático-d5735|backup automático]] services.py:9244
+- (chama) [[text_exportar_csv-abe89|exportar csv]] services.py:9247
+- (chama) [[text_exportar_csv_tudo-4a2f3|exportar csv tudo]] services.py:9250
+- (chama) [[text_exportar_csv_período_aaaa-mm-97ba6|exportar csv <período|aaaa-mm>]] services.py:9253
+- (chama) [[text_últimos_lançamentos-86333|últimos lançamentos]] services.py:9273
+- (chama) [[text_últimos_n-1c01f|últimos <n>]] services.py:9278
+- (chama) [[text_metas-0b7e7|metas]] services.py:9287
+- (chama) [[text_meta_categoria_valor-6d726|meta <categoria> <valor>]] services.py:9290
+- (chama) [[text_apagar_meta_categoria-be042|apagar meta <categoria>]] services.py:9298
+- (chama) [[text_apagar_último-72f84|apagar último]] services.py:9303
+- (chama) [[text_apagar_id_-_id-9e912|apagar <id>-<id>]] services.py:9306
+- (chama) [[text_apagar_id-9d0af|apagar <id>]] services.py:9310
+- (chama) [[text_mudar_id_-_id_para_categoria-03c4c|mudar <id>-<id> para <categoria>]] services.py:9314
+- (chama) [[text_mudar_id_para_categoria-45f77|mudar <id> para <categoria>]] services.py:9322
+- (chama) [[text_alterar_conta_id_para_conta_lançamento-afdda|alterar conta <id> para <conta> (lançamento)]] services.py:9326
+- (chama) [[text_alterar_forma_id_para_forma_lançamento-156be|alterar forma <id> para <forma> (lançamento)]] services.py:9333
+- (chama) [[text_corrigir_valor_id_para_v-58e6d|corrigir valor <id> para <v>]] services.py:9340
+- (chama) [[text_corrigir_id_para_v-90375|corrigir <id> para <v>]] services.py:9348
+- (chama) [[text_resumo_mensal-32e61|resumo mensal]] services.py:9356
+- (chama) [[text_gastos_de_hoje-c79e9|gastos de hoje]] services.py:9359
+- (chama) [[text_quanto_gastei_com_categoria_em_aaaa-mm-9ad79|quanto gastei com <categoria> em <aaaa-mm>]] services.py:9362
+- (chama) [[text_quanto_gastei_com_categoria-dd6ff|quanto gastei com <categoria>]] services.py:9370
+- (chama) [[text_mudar_último_para_categoria-54745|mudar último para <categoria>]] services.py:9374
+- (chama) [[text_comandos_protegidos_fallback-c5780|comandos protegidos (fallback)]] services.py:9378
+- (chama) [[text_valor_sem_contexto-96350|valor sem contexto]] services.py:9431
+- (chama) [[text_fatura_verbo_de_pagamento_bloqueio-f50e4|fatura + verbo de pagamento (bloqueio)]] services.py:9437
+- (chama) [[text_comando_operacional_não_reconhecido-b79c9|comando operacional não reconhecido]] services.py:9449
+- (chama) [[text_lançamento_livre_gastei_recebi_comprei...-a0909|lançamento livre (gastei|recebi|comprei...)]] services.py:9452
+- (chama) [[fn_services._bloqueio_parcela_isolada-acc72|services._bloqueio_parcela_isolada]] auxiliar de normalização/validação
+- (chama) [[fn_services._chave_sessao-9a5da|services._chave_sessao]] auxiliar de normalização/validação
+- (chama) [[fn_services._limpar_pendencia-91039|services._limpar_pendencia]] auxiliar de normalização/validação
+- (chama) [[fn_services._obter_pendencia-ef8f7|services._obter_pendencia]] auxiliar de normalização/validação
+- (chama) [[fn_services.bloco_heranca_mes_anterior-6a843|services.bloco_heranca_mes_anterior]] auxiliar de normalização/validação
+- (chama) [[fn_services.converter_valor_texto-a2a97|services.converter_valor_texto]] auxiliar de normalização/validação
+- (chama) [[fn_services.eh_alias_saldo_geral-e04a1|services.eh_alias_saldo_geral]] auxiliar de normalização/validação
+- (chama) [[fn_services.extrair_periodo_exportacao-3c357|services.extrair_periodo_exportacao]] auxiliar de normalização/validação
+- (chama) [[fn_services.formatar_ano_mes_visual-b32b4|services.formatar_ano_mes_visual]] auxiliar de normalização/validação
+- (chama) [[fn_services.formatar_nome_conta_saldo-f0eb7|services.formatar_nome_conta_saldo]] auxiliar de normalização/validação
+- (chama) [[fn_services.mensagem_exclusao_bloqueada_por_confirmacao-a17bf|services.mensagem_exclusao_bloqueada_por_confirmacao]] auxiliar de normalização/validação
+- (chama) [[fn_services.normalizar_ano_mes_flexivel-68b03|services.normalizar_ano_mes_flexivel]] auxiliar de normalização/validação
+- (chama) [[fn_services.normalizar_comando_sinonimos-69dcb|services.normalizar_comando_sinonimos]] auxiliar de normalização/validação
+- (chama) [[fn_services.obter_metricas_resultado_mes-ecfb1|services.obter_metricas_resultado_mes]] auxiliar de normalização/validação
+- (chama) [[fn_services.validar_ano_mes-a072d|services.validar_ano_mes]] auxiliar de normalização/validação
+- (le_estado) [[state__ALTERACAO_CONFIRMADA-fe9b4|_ALTERACAO_CONFIRMADA]] 8446
+
+## Vem de
+- (chama) [[fn_services.processar_mensagem-0f752|services.processar_mensagem]] 
+- (chama) [[mod_services.py-b3de3|services.py]] 

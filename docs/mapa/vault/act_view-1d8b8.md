@@ -1,0 +1,124 @@
+---
+tipo: action
+arquivo: telegram_experiencia.py
+linha: 2830
+---
+# view
+
+Abre tela <nome>: pausa fluxo, empilha trail, zera settings_draft/stage/page e render(target). NÃO altera Session.month.
+
+`act:view`
+
+## Vai para
+- (chama) [[fn_ux.render-b3471|Experience.render]] 
+- (grava_estado) [[state_Session.trail-b6f1c|Session.trail]] empilha (view,month,page) se muda de tela
+- (grava_estado) [[state_Session.page-3e7eb|Session.page]] zera
+- (grava_estado) [[state_Session.stage-ad71b|Session.stage]] zera
+- (grava_estado) [[state_Session.settings_draft-703dd|Session.settings_draft]] zera
+- (grava_estado) [[state_Session.view-a9ea1|Session.view]] 
+- (chama) [[fn_ux._suspend_flow-76c4a|_suspend_flow]] se há stage+draft
+- (le_estado) [[state_Session.month-7f614|Session.month]] NÃO grava: o mês da sessão atravessa a navegação
+- (chama) [[fn_ux.pause_for_guidance-482b6|pause_for_guidance]] 
+- (chama) [[fn_ux.open_learning-405a2|open_learning]] 
+- (le_estado) [[state_Session.suspended_draft-e4ebe|Session.suspended_draft]] 
+- (le_estado) [[state_Session.suspended_stage-bae0e|Session.suspended_stage]] 
+- (le_estado) [[state_Session.draft-81d88|Session.draft]] 
+- (navega) [[act_resume_suspended-0e970|resume_suspended]] botão da resposta
+- (navega) [[act_discard_and_register-b6760|discard_and_register]] botão da resposta
+
+## Vem de
+- (chama) [[fn_ux.dispatch_text-8df9e|ux.dispatch_text]] deterministic_view sem enrich (act view) - NÃO toca no mês
+- (chama) [[fn_ux._ai_query_result-20fe1|_ai_query_result]] intent renderizável
+- (chama) [[fn_ux.question_result-77118|question_result]] 
+- (chama) [[fn_ux.handle_text-89ee1|Experience.handle_text]] shortcuts/consulta fixa/pergunta natural
+- (chama) [[text_menu-03529|menu]] home
+- (chama) [[text_atalhos_tela-c62ab|registrar/a pagar/historico/analises/mais/ajuda]] 
+- (chama) [[text_consulta_fixa-855da|meu mes|fechamento|atencao|resumo|quanto vou pagar|saldo geral|agenda|alertas|a receber|conciliacoes|assinaturas|meu plano|assessor [AAAA-MM]]] 
+- (chama) [[text_pergunta_natural-eb99e|pergunta em linguagem natural]] não toca no mês
+- (chama) [[cmd_menu-be698|/menu]] view home - sem reset do mês (app.py:4343)
+- (chama) [[cmd_atalhos_abrir_atalho_ux-b0368|/pagar /historico /saldos /fechamento /atencao /recursos]] 
+- (chama) [[cmd_help-8f98e|/help]] 
+- (chama) [[fn_ux.act-20779|Experience.act]] 
+- (chama) [[btn_Menu-04e55|☰ Menu]] 
+- (chama) [[btn_Início-1bd0b|🏠 Início]] 
+- (navega) [[screen_help_topic-07999|help_topic]] ações do tópico (HELP_TOPICS.rows)
+- (chama) [[act_ai_route-0c6a9|ai_route]] 
+- (navega) [[act_disabled-6cffe|disabled]] botão da resposta
+- (navega) [[act_new_fixed_cancel-e16bb|new_fixed_cancel]] botão da resposta
+- (navega) [[act_new_fixed_commit-b9167|new_fixed_commit]] botão da resposta
+- (navega) [[act_conflict_start-3417b|conflict_start]] botão da resposta
+- (navega) [[act_discard_suspended-3db5a|discard_suspended]] botão da resposta
+- (navega) [[act_category_rule_remove-7bab7|category_rule_remove]] botão da resposta
+- (navega) [[act_category_rule_remove_commit-35909|category_rule_remove_commit]] botão da resposta
+- (navega) [[act_category-edf48|category]] 
+- (navega) [[act_invoice_commit-7ad93|invoice_commit]] botão da resposta
+- (navega) [[act_reconcile_baseline_preview-fb5bf|reconcile_baseline_preview]] botão da resposta
+- (navega) [[act_reconcile_baseline_commit-6bad7|reconcile_baseline_commit]] botão da resposta
+- (navega) [[act_alert_preview-31dab|alert_preview]] botão da resposta
+- (navega) [[act_balance_start-167b7|balance_start]] botão da resposta
+- (navega) [[act_chart-efa97|chart]] botão da resposta
+- (navega) [[act_keep_separate-a37e9|keep_separate]] botão da resposta
+- (navega) [[act_commit_link-b8e95|commit_link]] botão da resposta
+- (navega) [[act_unlink_preview-4398d|unlink_preview]] botão da resposta
+- (navega) [[act_unlink-f4b9c|unlink]] botão da resposta
+- (navega) [[act_cancel-c6497|cancel]] botão da resposta
+- (navega) [[act_commit-ada76|commit]] botão da resposta
+- (navega) [[act_cat_preview-76b38|cat_preview]] botão da resposta
+- (navega) [[act_cat_confirm-ff9ed|cat_confirm]] botão da resposta
+- (navega) [[act_cat_learn-63acd|cat_learn]] botão da resposta
+- (navega) [[act_date_confirm-130a2|date_confirm]] botão da resposta
+- (navega) [[act_undo_preview-52def|undo_preview]] botão da resposta
+- (navega) [[act_undo-07bdc|undo]] botão da resposta
+- (navega) [[screen_home-111fe|home]] 
+- (navega) [[screen_feature_guide-3fc8e|feature_guide]] 
+- (navega) [[screen_month_actions-bedf6|month_actions]] 
+- (navega) [[screen_attention-ebc03|attention]] 
+- (navega) [[screen_closing-a1da9|closing]] 
+- (navega) [[screen_closing_details-60038|closing_details]] 
+- (navega) [[screen_balance-64c54|balance]] 
+- (navega) [[screen_balance_details-02072|balance_details]] 
+- (navega) [[screen_analytics-4bd00|analytics]] 
+- (navega) [[screen_categories-bcdb1|categories]] 
+- (navega) [[screen_review-185df|review]] 
+- (navega) [[screen_review_details-b6002|review_details]] 
+- (navega) [[screen_register-1389d|register]] 
+- (navega) [[screen_more-4f9f6|more]] 
+- (navega) [[screen_resources-d1f70|resources]] 
+- (navega) [[screen_accounts_manage-5980c|accounts_manage]] 
+- (navega) [[screen_planning_tools-d534b|planning_tools]] 
+- (navega) [[screen_review_tools-cb4c3|review_tools]] 
+- (navega) [[screen_data_tools-d1767|data_tools]] 
+- (navega) [[screen_category_rules-91f55|category_rules]] 
+- (navega) [[screen_help-8e6e8|help]] 
+- (navega) [[screen_learn-155c2|learn]] 
+- (navega) [[screen_learn_topics-cf59a|learn_topics]] 
+- (navega) [[screen_lesson-90d28|lesson]] 
+- (navega) [[screen_receivables-eb894|receivables]] 
+- (navega) [[screen_reconciliations-256e3|reconciliations]] 
+- (navega) [[screen_can_buy-e0e39|can_buy]] 
+- (navega) [[screen_plan-adfe6|plan]] 
+- (navega) [[screen_agenda-a82fc|agenda]] 
+- (navega) [[screen_assistant-c05b6|assistant]] 
+- (navega) [[screen_local_ai-599c7|local_ai]] 
+- (navega) [[screen_alerts-313c9|alerts]] 
+- (navega) [[screen_alert_settings-a6f83|alert_settings]] 
+- (navega) [[screen_setup-2cfa0|setup]] 
+- (navega) [[screen_command_help-4b0d8|command_help]] 
+- (navega) [[screen_advanced_help-617c1|advanced_help]] 
+- (navega) [[screen_transaction-cd364|transaction]] 
+- (navega) [[screen_obligation-113ca|obligation]] 
+- (navega) [[screen_accounts-cc0c6|accounts]] 
+- (navega) [[screen_question-e9cf8|question]] 
+- (chama) [[fn_ux.preview-35809|preview]] 
+- (chama) [[fn_ux._cash_accounts_screen-0bdea|_cash_accounts_screen]] 
+- (chama) [[fn_ux._cash_account_detail_screen-2f392|_cash_account_detail_screen]] 
+- (chama) [[fn_ux._balance_account_screen-85ed8|_balance_account_screen]] 
+- (chama) [[fn_ux._pay_month_screen-fe596|_pay_month_screen]] 
+- (chama) [[fn_ux._pay_month_account_detail-faa0e|_pay_month_account_detail]] 
+- (chama) [[fn_ux._pay_account_screen-545a8|_pay_account_screen]] 
+- (chama) [[fn_ux._categoria_menu-09adc|ux._categoria_menu]] 
+- (chama) [[fn_ux._data_menu-cf2f5|ux._data_menu]] 
+- (chama) [[fn_ux._acct_off_confirm-18a50|ux._acct_off_confirm]] 
+- (chama) [[fn_ux._cash_setup_start-b8255|_cash_setup_start]] 
+- (chama) [[fn_ux.installment_schedule-6e2cc|installment_schedule]] 
+- (chama) [[fn_ux.begin_can_buy-202cd|ux.begin_can_buy]] 

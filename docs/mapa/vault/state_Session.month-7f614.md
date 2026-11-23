@@ -1,0 +1,141 @@
+---
+tipo: state
+arquivo: telegram_experiencia.py
+linha: 333
+---
+# Session.month
+
+Mês selecionado da sessão de UX2 (dataclass Session.month). Lido por todas as telas (home/pay/balance/...), persistido por EXPERIENCE.persist() em .runtime/telegram_sessions.bin (DPAPI); TTL 600 s de inatividade.
+
+`state:Session.month`
+
+## Vai para
+- (grava_estado) [[state_telegram_sessions.bin-afe2c|telegram_sessions.bin]] run_experience -> persist() (3864-3869)
+
+## Vem de
+- (grava_estado) [[fn_telegram_experiencia.fast_deterministic_query-635f0|telegram_experiencia.fast_deterministic_query]] 3720: s.month = mês do texto ou mês atual
+- (grava_estado) [[fn_telegram_experiencia._ai_query_result-e568b|telegram_experiencia._ai_query_result]] 3741: s.month = months[-1]
+- (grava_estado) [[fn_telegram_experiencia._pay_month_screen-4681f|telegram_experiencia._pay_month_screen]] 3497
+- (le_estado) [[fn_telegram_experiencia._pay_month_screen-4681f|telegram_experiencia._pay_month_screen]] 3494 month = month or s.month
+- (grava_estado) [[text_quanto_vou_pagar_ux2_aaaa-mm-714dc|quanto vou pagar [aaaa-mm] (UX2)]] 2956-2957
+- (le_estado) [[fn_telegram_experiencia.render-aa635|telegram_experiencia.render]] screen_<view>(s) usa s.month
+- (le_estado) [[cmd_menu-be698|/menu]] tela Início usa s.month, que pode ficar de uma consulta anterior (até TTL 600 s)
+- (grava_estado) [[text_menu_início_a_pagar_atalhos_UX2-88d1a|menu|inicio|central|a pagar|histórico|análises (texto)]] 2935: volta ao mês atual
+- (le_estado) [[text_botões_view_X_Início-cb16d|botões ('view', X)]] 
+- (grava_estado) [[fn_telegram_experiencia.act-0d59a|telegram_experiencia.act]] 'month' (2823), 'current_month' (2824), dashboard_month (2363)
+- (le_estado) [[fn_assessor_orientacao.coletar-df8f0|assessor_orientacao.coletar]] s.month
+- (le_estado) [[fn_telegram_experiencia.screen_receivables-7fe08|telegram_experiencia.screen_receivables]] 
+- (le_estado) [[fn_telegram_experiencia.screen_pay-c88c4|telegram_experiencia.screen_pay]] 
+- (le_estado) [[fn_telegram_experiencia.screen_agenda-da330|telegram_experiencia.screen_agenda]] 
+- (le_estado) [[fn_telegram_experiencia.screen_balance-df783|telegram_experiencia.screen_balance]] 
+- (le_estado) [[fn_telegram_experiencia.screen_analytics-3aa02|telegram_experiencia.screen_analytics]] 
+- (le_estado) [[fn_telegram_experiencia.screen_recurring-4c0ce|telegram_experiencia.screen_recurring]] 
+- (le_estado) [[fn_telegram_experiencia.screen_budgets-740e9|telegram_experiencia.screen_budgets]] 
+- (le_estado) [[fn_telegram_experiencia.screen_review-6556a|telegram_experiencia.screen_review]] 
+- (le_estado) [[fn_telegram_experiencia.screen_alerts-edeeb|telegram_experiencia.screen_alerts]] 
+- (le_estado) [[fn_telegram_experiencia.screen_attention-cfc78|telegram_experiencia.screen_attention]] 
+- (le_estado) [[fn_telegram_experiencia.screen_closing-785b7|telegram_experiencia.screen_closing]] 
+- (le_estado) [[fn_telegram_experiencia.screen_home-2d196|telegram_experiencia.screen_home]] 
+- (le_estado) [[fn_telegram_experiencia.screen_help-94df3|telegram_experiencia.screen_help]] 
+- (le_estado) [[fn_dashboard_metricas.enriquecer-42163|dashboard_metricas.enriquecer]] month=s.month (18)
+- (le_estado) [[fn_telegram_recursos.dispatch-a2ef9|telegram_recursos.dispatch]] origin usa s.month (108-112)
+- (grava_estado) [[fn_ux.fast_deterministic_query-fb2df|fast_deterministic_query]] l.3720 s.month=mês do texto (ou corrente se sem mês)
+- (le_estado) [[fn_ux._ai_months-95d1a|_ai_months]] period vazio => [s.month]
+- (grava_estado) [[fn_ux._ai_query_result-20fe1|_ai_query_result]] l.3741 s.month=months[-1] - NUNCA restaurado depois
+- (grava_estado) [[text_menu-03529|menu]] RESETA p/ mês corrente (l.2935)
+- (grava_estado) [[text_atalhos_tela-c62ab|registrar/a pagar/historico/analises/mais/ajuda]] reseta só p/ home,pay,history,analytics,balance,agenda,receivables,reconciliations,recurring,plan
+- (grava_estado) [[text_consulta_fixa-855da|meu mes|fechamento|atencao|resumo|quanto vou pagar|saldo geral|agenda|alertas|a receber|conciliacoes|assinaturas|meu plano|assessor [AAAA-MM]]] l.2956-2957 mês do texto ou corrente
+- (grava_estado) [[text_dashboard-5acd2|dashboard]] só se houver período (l.2945)
+- (grava_estado) [[text_quanto_vou_pagar_mes-cf5ca|quanto vou pagar em novembro]] novembro (via fast_deterministic_query/_ai_query_result)
+- (grava_estado) [[cmd_atalhos_abrir_atalho_ux-b0368|/pagar /historico /saldos /fechamento /atencao /recursos]] app.py:4468 reseta ao corrente
+- (grava_estado) [[cmd_dashboard-a49b5|/dashboard]] só com período (app.py:4428)
+- (le_estado) [[screen_home-111fe|home]] título/consulta usa s.month
+- (le_estado) [[btn_Início-1bd0b|🏠 Início]] home exibirá o mês gravado
+- (le_estado) [[screen_feature_guide-3fc8e|feature_guide]] título/consulta usa s.month
+- (le_estado) [[screen_month_actions-bedf6|month_actions]] título/consulta usa s.month
+- (le_estado) [[screen_attention-ebc03|attention]] título/consulta usa s.month
+- (le_estado) [[screen_closing-a1da9|closing]] título/consulta usa s.month
+- (le_estado) [[screen_closing_details-60038|closing_details]] título/consulta usa s.month
+- (le_estado) [[screen_balance-64c54|balance]] título/consulta usa s.month
+- (le_estado) [[screen_balance_details-02072|balance_details]] título/consulta usa s.month
+- (le_estado) [[screen_pay-ee2a3|pay]] título/consulta usa s.month
+- (le_estado) [[screen_pay_tools-19539|pay_tools]] título/consulta usa s.month
+- (le_estado) [[screen_history-d40e7|history]] título/consulta usa s.month
+- (le_estado) [[screen_history_tools-cc0f8|history_tools]] título/consulta usa s.month
+- (le_estado) [[screen_analytics-4bd00|analytics]] título/consulta usa s.month
+- (le_estado) [[screen_categories-bcdb1|categories]] título/consulta usa s.month
+- (le_estado) [[screen_budgets-b41b9|budgets]] título/consulta usa s.month
+- (le_estado) [[screen_review-185df|review]] título/consulta usa s.month
+- (le_estado) [[screen_review_details-b6002|review_details]] título/consulta usa s.month
+- (le_estado) [[screen_planning_tools-d534b|planning_tools]] título/consulta usa s.month
+- (le_estado) [[screen_review_tools-cb4c3|review_tools]] título/consulta usa s.month
+- (le_estado) [[screen_data_tools-d1767|data_tools]] título/consulta usa s.month
+- (le_estado) [[screen_lesson-90d28|lesson]] título/consulta usa s.month
+- (le_estado) [[screen_receivables-eb894|receivables]] título/consulta usa s.month
+- (le_estado) [[screen_reconciliations-256e3|reconciliations]] título/consulta usa s.month
+- (le_estado) [[screen_plan-adfe6|plan]] título/consulta usa s.month
+- (le_estado) [[screen_agenda-a82fc|agenda]] título/consulta usa s.month
+- (le_estado) [[screen_recurring-7f11e|recurring]] título/consulta usa s.month
+- (le_estado) [[screen_setup-2cfa0|setup]] título/consulta usa s.month
+- (grava_estado) [[screen_pay_month-39a6a|pay_month]] l.3497
+- (grava_estado) [[screen_pay_month_account_detail-15b60|pay_month_account_detail]] l.3611
+- (grava_estado) [[screen_pay_account-46888|pay_account]] l.3625
+- (grava_estado) [[screen_cash_accounts-cc984|cash_accounts]] l.3268
+- (grava_estado) [[screen_cash_account_detail-b41d6|cash_account_detail]] l.3336
+- (grava_estado) [[screen_balance_account-fac81|balance_account]] l.3407
+- (le_estado) [[screen_dashboard-6ba51|dashboard]] título/consulta usa s.month
+- (le_estado) [[fn_ux.target_picker-0a39c|target_picker]] título/consulta usa s.month
+- (le_estado) [[screen_fixos-1e200|fixos]] título/consulta usa s.month
+- (le_estado) [[screen_period_tools-35de3|period_tools]] título/consulta usa s.month
+- (le_estado) [[act_view-1d8b8|view]] NÃO grava: o mês da sessão atravessa a navegação
+- (grava_estado) [[act_month-43f36|month]] month_shift(±1) l.2823
+- (grava_estado) [[act_current_month-a6e38|current_month]] mês corrente l.2824
+- (grava_estado) [[act_back-bca78|back]] restaura mês do trail (l.2412)
+- (grava_estado) [[act_pay_account_filter-642f0|pay_account_filter]] l.2509 s.month=action[2]
+- (grava_estado) [[act_dashboard_month-21b8f|dashboard_month]] l.2363 month_shift(s.month)
+- (le_estado) [[act_chart-efa97|chart]] 
+- (grava_estado) [[act_commit-ada76|commit]] l.2882 s.month=mês da data do registro
+- (grava_estado) [[act_pick_target-407d8|pick_target]] l.2787 s.month=competência do rascunho
+- (grava_estado) [[act_target_month-a6608|target_month]] l.2788 s.month±1
+- (grava_estado) [[act_link_existing-2737a|link_existing]] l.1580 competência do lançamento
+- (grava_estado) [[act_invoice_commit-7ad93|invoice_commit]] l.2570 s.month=mês da fatura
+- (grava_estado) [[act_reconcile_baseline_preview-fb5bf|reconcile_baseline_preview]] l.2597 força mês corrente
+- (grava_estado) [[act_reconcile_baseline_commit-6bad7|reconcile_baseline_commit]] l.2633 mês corrente
+- (grava_estado) [[act_cash_setup_start-c6f73|cash_setup_start]] l.3363 força mês corrente
+- (grava_estado) [[act_cash_setup_account-7864b|cash_setup_account]] l.3371 força mês corrente
+- (le_estado) [[act_balance_initial-82e49|balance_initial]] 
+- (grava_estado) [[act_cancel-c6497|cancel]] restaura do trail só p/ invoice_/account_search
+- (le_estado) [[act_origin-c0e35|origin]] 
+- (grava_estado) [[fn_ux.session-8e514|Experience.session]] nova Session: month = date_provider() (l.460)
+- (le_estado) [[fn_orientacao.coletar-ba856|coletar]] monta métricas/itens do s.month
+- (le_estado) [[fn_ux.dispatch_callback-a9f29|ux.dispatch_callback]] só p/ tela expirada de saldos (l.4285)
+- (grava_estado) [[fn_ux.begin_invoice_payment-d061f|begin_invoice_payment]] l.1473 s.month=mês da fatura
+- (grava_estado) [[fn_ux.begin_existing_link-875bc|begin_existing_link]] l.1580
+- (grava_estado) [[fn_ux._cash_accounts_screen-0bdea|_cash_accounts_screen]] l.3268
+- (grava_estado) [[fn_ux._cash_account_detail_screen-2f392|_cash_account_detail_screen]] l.3336
+- (grava_estado) [[fn_ux._balance_account_screen-85ed8|_balance_account_screen]] l.3407
+- (grava_estado) [[fn_ux._cash_setup_start-b8255|_cash_setup_start]] l.3363 mês corrente
+- (grava_estado) [[fn_ux._cash_setup_account-e2e3c|_cash_setup_account]] l.3371 mês corrente
+- (grava_estado) [[fn_ux._pay_month_screen-fe596|_pay_month_screen]] l.3497
+- (grava_estado) [[fn_ux._pay_month_account_detail-faa0e|_pay_month_account_detail]] l.3611
+- (grava_estado) [[fn_ux._pay_account_screen-545a8|_pay_account_screen]] l.3625
+- (le_estado) [[fn_ux.history_items-a4c0f|history_items]] 
+- (grava_estado) [[btn_Mês_atual-9f60a|Mês atual / ↩ Mês atual]] mês corrente
+- (grava_estado) [[btn_Mês_anterior-c7670|‹ Mês anterior]] month_shift(-1)
+- (grava_estado) [[btn_Próximo_mês-62aa3|Próximo mês ›]] month_shift(+1)
+- (grava_estado) [[fn_ux.Session-2ca27|Session]] campo obrigatório; sem reset automático
+- (le_estado) [[bug_menu_mes_novembro-e8fd4|BUG mês vaza para o Menu]] 
+- (le_estado) [[act_topic-518da|topic]] 
+- (le_estado) [[act_transaction-fab7d|transaction]] 
+- (le_estado) [[act_detail_obligation-b6e92|detail_obligation]] 
+- (le_estado) [[act_accounts_for-fd5a1|accounts_for]] 
+- (le_estado) [[act_ask-dbbdf|ask]] 
+- (le_estado) [[act_period_tools-9b2d7|period_tools]] 
+- (le_estado) [[act_home_income-c95f5|home_income]] 
+- (le_estado) [[act_cash_accounts-a48cb|cash_accounts]] 
+- (le_estado) [[screen_resources-d1f70|resources]] 
+- (le_estado) [[screen_help_topic-07999|help_topic]] 
+- (le_estado) [[fn_ux._pay_tools_screen-7fc89|_pay_tools_screen]] 
+- (le_estado) [[fn_ux._history_tools_screen-c950e|_history_tools_screen]] 
+- (grava_estado) [[fn_ux.begin_can_buy-202cd|ux.begin_can_buy]] 
+- (grava_estado) [[fn_ux.handle_text-89ee1|Experience.handle_text]] 

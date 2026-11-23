@@ -1,0 +1,23 @@
+[Unit]
+Description=Assessor Financeiro (bot Telegram)
+After=network-online.target
+Wants=network-online.target
+# Sem limite de tentativas: reinicia para sempre (queda de rede, erro, atualização).
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=__USUARIO__
+WorkingDirectory=__PROJETO__
+ExecStart=__PROJETO__/.venv/bin/python app.py
+Restart=always
+RestartSec=15
+Environment=PYTHONIOENCODING=utf-8
+Environment=PYTHONUNBUFFERED=1
+Environment=IMAGEIO_FFMPEG_EXE=/usr/bin/ffmpeg
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
